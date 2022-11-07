@@ -5,5 +5,4 @@ package enigma_project.Algorithm;
  * @author flippi321
  */
 public class Enigma {
-
 }
