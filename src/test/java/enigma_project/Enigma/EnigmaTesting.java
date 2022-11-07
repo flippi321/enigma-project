@@ -4,14 +4,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class EnigmaTesting {
-    String message = "Hello good sir, you look very nice today!";
+    String message = "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.";
 
     @Nested
     @DisplayName("Constructors")
@@ -58,6 +55,19 @@ public class EnigmaTesting {
             try {
                 Enigma enigma = new Enigma("A", "B", "C");
                 String encrypted = enigma.encrypt(message);
+                assertEquals(message.toLowerCase(), enigma.decrypt(encrypted));
+            } catch (IllegalArgumentException e) {
+                fail("checkDrumWithSettingA failed");
+            }
+        }
+
+        @Test
+        @DisplayName("Check Drum with Setting C-A-B")
+        public void checkDrumWithSettingCAB() {
+            try {
+                Enigma enigma = new Enigma("C", "A", "B");
+                String encrypted = enigma.encrypt(message);
+                System.out.println(encrypted);
                 assertEquals(message.toLowerCase(), enigma.decrypt(encrypted));
             } catch (IllegalArgumentException e) {
                 fail("checkDrumWithSettingA failed");
