@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Nested
 @DisplayName("Drum Test")
@@ -123,6 +122,35 @@ public class DrumTest {
                 ArrayList<Character> correctList = new ArrayList<>(Arrays.asList('.',',',' ','z','y','x','w',
                         'v','u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','a','!'));
                 assertEquals(correctList, drum.getWheel());
+            } catch(IllegalArgumentException e) {
+                fail("checkDrumWithSettingA failed");
+            }
+        }
+
+        @Test
+        @DisplayName("Check that Tick only returns true after 30 rotations")
+        public void checkThatTickReturnsTrueCorrectly(){
+            try{
+                Drum drum = new Drum("A");
+                for(int i = 1; i < 30; i++){
+                    assertFalse(drum.tickDown(true));
+                }
+                assertTrue(drum.tickDown(true));
+            } catch(IllegalArgumentException e) {
+                fail("checkDrumWithSettingA failed");
+            }
+        }
+
+        @Test
+        @DisplayName("Check that Combining multiple Ticks works as intended")
+        public void checkCombiningTicks(){
+            try{
+                Drum drum1 = new Drum("A");
+                Drum drum2 = new Drum("A");
+                for(int i = 1; i < 900; i++){
+                    assertFalse(drum1.tickDown(drum2.tickDown(true)));
+                }
+                assertTrue(drum1.tickDown(drum2.tickDown(true)));
             } catch(IllegalArgumentException e) {
                 fail("checkDrumWithSettingA failed");
             }

@@ -14,12 +14,16 @@ public class Enigma {
     Drum drum2;
     Drum drum3;
     Reflector reflector;
+    String drum1_type;
+    String drum2_type;
+    String drum3_type;
 
-    public Enigma(String type1, String type2, String type3) {
-        drum1 = new Drum(type1.toUpperCase(Locale.ROOT));
-        drum2 = new Drum(type2.toUpperCase(Locale.ROOT));
-        drum3 = new Drum(type3.toUpperCase(Locale.ROOT));
+    public Enigma(String drum1_type, String drum2_type, String drum3_type) {
+        this.drum1_type = drum1_type.toUpperCase(Locale.ROOT);
+        this.drum2_type = drum2_type.toUpperCase(Locale.ROOT);
+        this.drum3_type = drum3_type.toUpperCase(Locale.ROOT);
         reflector = new Reflector();
+        resetDrums();
     }
 
     public String encrypt(String input){
@@ -31,12 +35,13 @@ public class Enigma {
             // Reflect back
             char reflected =reflector.reflectLetter(encrypted1);
             // Encrypt Again
-            char encrypted2 = drum3.rightEncrypt(drum2.rightEncrypt(drum1.rightEncrypt(letter)));
+            char encrypted2 = drum1.rightEncrypt(drum2.rightEncrypt(drum3.rightEncrypt(letter)));
             // Add letter to output
             output.append(encrypted2);
             // Rotate Wheels
             drum3.tickUp(drum2.tickUp(drum1.tickUp(true)));
         }
+        resetDrums();
         return output.toString();
     }
 
@@ -44,24 +49,26 @@ public class Enigma {
         char[] messageList = input.toLowerCase(Locale.ROOT).toCharArray();
         StringBuilder output = new StringBuilder();
 
-        for(int i = 0; i <= messageList.length; i++){
-            // Rotate Wheels
-            drum3.tickDown(drum2.tickDown(drum1.tickDown(true)));
-        }
-
         for (char letter : messageList){
             // Encrypt Message
-            char encrypted1 = drum3.leftDecrypt(drum2.leftDecrypt(drum1.leftDecrypt(letter)));
+            char encrypted1 = drum1.leftDecrypt(drum2.leftDecrypt(drum3.leftDecrypt(letter)));
             // Reflect back
             char reflected =reflector.reflectLetter(encrypted1);
             // Encrypt Again
             char encrypted2 = drum3.rightDecrypt(drum2.rightDecrypt(drum1.rightDecrypt(letter)));
-            // Rotate Wheels
-            drum3.tickUp(drum2.tickUp(drum1.tickUp(true)));
             // Add letter to output
             output.append(encrypted2);
+            // Rotate Wheels
+            drum3.tickUp(drum2.tickUp(drum1.tickUp(true)));
         }
+        resetDrums();
         return output.toString();
+    }
+
+    private void resetDrums(){
+        drum1 = new Drum(drum1_type.toUpperCase(Locale.ROOT));
+        drum2 = new Drum(drum2_type.toUpperCase(Locale.ROOT));
+        drum3 = new Drum(drum3_type.toUpperCase(Locale.ROOT));
     }
 
     // Getters and setter
