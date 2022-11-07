@@ -1,24 +1,25 @@
 package enigma_project.Wheel_Section;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 
 /**
  * Enigma Machine Drum class
  * @author flippi321
  */
 public class Drum {
-    ArrayList<Character> alphabet;
-    ArrayList<Character> wheel;
+    List<Character> alphabet;
+    List<Character> wheel;
     int wheelPosition;
 
     /**
      * Constructor for class that represents an encryption wheel
      * @param type string representing the wheel_type enum
      */
-    public Drum(String type) {
+    public Drum(String type) throws IllegalArgumentException {
+        if (!type.equalsIgnoreCase("A") & !type.equalsIgnoreCase("B") &
+                !type.equalsIgnoreCase("C")){
+            throw new IllegalArgumentException("Wheel Setting must be Valid letter (A-C)");
+        }
+
         // Use Wheel A
         if (type.equalsIgnoreCase("A")){
             this.wheel = new ArrayList<>(Arrays.asList('z','y','x','w','v',
@@ -44,25 +45,26 @@ public class Drum {
      * Method to tick the wheel
      * Depending on the parameters, this can either mean moving all values one step up or one step down
      */
-    private boolean tick(int srcPos, int destPos){
-        Object[] wheelCopy = wheel.toArray();
-        // Get last element
-        int last_position = wheel.size()-1;
-        char temp = wheel.get(last_position);
-        // Replace all values with the previous one
-        // TODO test that arraycopy works as intended
-        System.arraycopy(wheelCopy, srcPos, wheelCopy, destPos, wheelCopy.length);
-        //Replace first value with the last element
-        wheelCopy[0] = temp;
-
-        //Put updated values back in wheel
-        wheel.clear();
-        for (Object o : wheelCopy) {
-            wheel.add((Character) o);
+    private boolean tick(int setting) throws IllegalArgumentException {
+        // Rotate Up
+        if (setting==1){
+            // Move last element to the front
+            wheel.add(0, wheel.get(wheel.size()-1));
+            wheel.remove(wheel.size()-1);
+        }
+        // Rotate Down
+        else if (setting==-1){
+            // Move first element to the back
+            wheel.add(wheel.size()-1, wheel.get(0));
+            wheel.remove(0);
+        }
+        // Invalid Input
+        else {
+            throw new IllegalArgumentException("Setting has to be either -1 or 1");
         }
 
         //If wheel has reset, the next wheel needs to tick
-        if(wheelPosition==last_position){
+        if(wheelPosition==(wheel.size()-1)){
             wheelPosition = 0;
             return true;
         }
@@ -76,7 +78,7 @@ public class Drum {
      */
     public boolean tickUp(boolean shouldTick) {
         if (shouldTick){
-            return tick(0, 1);
+            tick(1);
         }
         return false;
     }
@@ -87,7 +89,7 @@ public class Drum {
      */
     public boolean tickDown(boolean shouldTick) {
         if (shouldTick){
-            return tick(1, 0);
+            return tick(-1);
         }
         return false;
     }
@@ -97,8 +99,8 @@ public class Drum {
      * This is used to set the initial position of the enigma drums
      * @param n how many times the wheel will tick
      */
-    public void setDrumPosTo(int n){
-        if (n<=0){  throw new IllegalArgumentException("Has to rotate a positive number of times"); }
+    public void setDrumPosTo(int n) throws IllegalArgumentException{
+        if (n <= 0){  throw new IllegalArgumentException("Has to rotate more than 0 times"); }
         for(int i = 0; i < n; i++){
             tickUp(true);
         }
@@ -124,5 +126,31 @@ public class Drum {
     public char rightEncrypt(char c){
         int pos = wheel.indexOf(c);
         return alphabet.get(pos);
+    }
+
+    // Getters and Setters
+
+    public List<Character> getAlphabet() {
+        return alphabet;
+    }
+
+    public void setAlphabet(ArrayList<Character> alphabet) {
+        this.alphabet = alphabet;
+    }
+
+    public List<Character> getWheel() {
+        return wheel;
+    }
+
+    public void setWheel(ArrayList<Character> wheel) {
+        this.wheel = wheel;
+    }
+
+    public int getWheelPosition() {
+        return wheelPosition;
+    }
+
+    public void setWheelPosition(int wheelPosition) {
+        this.wheelPosition = wheelPosition;
     }
 }
