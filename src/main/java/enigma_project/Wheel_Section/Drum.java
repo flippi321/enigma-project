@@ -9,19 +9,16 @@ import java.util.Collections;
  * Enigma Machine Drum class
  * @author flippi321
  */
-public class drum {
+public class Drum {
     ArrayList<Character> alphabet;
     ArrayList<Character> wheel;
     int wheelPosition;
-
-    char[] C =
-            {};
 
     /**
      * Constructor for class that represents an encryption wheel
      * @param type string representing the wheel_type enum
      */
-    public drum(String type) {
+    public Drum(String type) {
         // Use Wheel A
         if (type.equalsIgnoreCase("A")){
             this.wheel = new ArrayList<>(Arrays.asList('z','y','x','w','v',
