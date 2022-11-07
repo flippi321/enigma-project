@@ -23,7 +23,7 @@ public class Reflector {
      * @return the opposite letter
      */
     public char reflectLetter(char in){
-        int newPost = alphabet.size() - alphabet.indexOf(in);   // Calculate the opposite index
+        int newPost = (alphabet.size()-1) - alphabet.indexOf(in);   // Calculate the opposite index
         return alphabet.get(newPost);                           // Return corresponding Character
     }
 }
