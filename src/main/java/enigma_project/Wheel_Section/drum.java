@@ -10,9 +10,7 @@ import java.util.Collections;
  * @author flippi321
  */
 public class drum {
-    char[] alphabet =
-            {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
-                    'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+    ArrayList<Character> alphabet;
     ArrayList<Character> wheel;
     int wheelPosition;
 
@@ -39,7 +37,9 @@ public class drum {
             this.wheel = new ArrayList<>(Arrays.asList('y','d','s','q','l',
                     'w','p','z','x','u','k','b','h','c','e','m','v','a','n','o','r','g','t','f','j','i'));
         }
-
+        // Define alphabet
+        alphabet = new ArrayList<>(Arrays.asList('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+                'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'));
         wheelPosition = 0;
     }
 
@@ -107,7 +107,25 @@ public class drum {
         }
     }
 
-    public void encrypt(char c){
+    /**
+     * Method for scrambling a letter using the wheel
+     * This method is used on encryption done before reaching the reflector
+     * @param c the input character
+     * @return the scrambled character
+     */
+    public char leftEncrypt(char c){
+        int pos = alphabet.indexOf(c);
+        return wheel.get(pos);
+    }
 
+    /**
+     * Method for scrambling a letter using the wheel
+     * This method is used on encryption done after reaching the reflector
+     * @param c the input character
+     * @return the scrambled character
+     */
+    public char rightEncrypt(char c){
+        int pos = wheel.indexOf(c);
+        return alphabet.get(pos);
     }
 }
