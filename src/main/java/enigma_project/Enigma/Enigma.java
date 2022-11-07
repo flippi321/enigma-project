@@ -37,4 +37,22 @@ public class Enigma {
         }
         return output.toString();
     }
+
+    public String decrypt(String input){
+        char[] messageList = input.toCharArray();
+        StringBuilder output = new StringBuilder();
+        for (char letter : messageList){
+            // Encrypt Message
+            char encrypted1 = drum3.leftEncrypt(drum2.leftEncrypt(drum1.leftEncrypt(letter)));
+            // Reflect back
+            char reflected =reflector.reflectLetter(encrypted1);
+            // Encrypt Again
+            char encrypted2 = drum3.rightEncrypt(drum2.rightEncrypt(drum1.rightEncrypt(letter)));
+            // Rotate Wheels
+            drum3.tickDown(drum2.tickDown(drum1.tickDown(true)));
+            // Add letter to output
+            output.append(encrypted2);
+        }
+        return output.toString();
+    }
 }
