@@ -44,6 +44,7 @@ public class Drum {
     /**
      * Method to tick the wheel
      * Depending on the parameters, this can either mean moving all values one step up or one step down
+     * @param setting 1 for upwards, 0 for downwards
      */
     private boolean tick(int setting) throws IllegalArgumentException {
         // Rotate Up
@@ -75,6 +76,7 @@ public class Drum {
     /**
      * Method to tick the wheel upwards if possible
      * All values will be moved up and the last value will be put at the first position
+     * @param shouldTick if the tick method should be used
      */
     public boolean tickUp(boolean shouldTick) {
         if (shouldTick){
@@ -86,6 +88,7 @@ public class Drum {
     /**
      * Method to tick the wheel downwards if possible
      * All values will be moved down and the first value will be put at the last position
+     * @param shouldTick if the tick method should be used
      */
     public boolean tickDown(boolean shouldTick) {
         if (shouldTick){

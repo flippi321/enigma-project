@@ -1,8 +1,5 @@
 package enigma_project.Enigma;
 import enigma_project.Wheel_Section.*;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -18,6 +15,12 @@ public class Enigma {
     String drum2_type;
     String drum3_type;
 
+    /**
+     * Constructor for class representing an Enigma machine
+     * @param drum1_type the type of wheel used by drum1
+     * @param drum2_type the type of wheel used by drum2
+     * @param drum3_type the type of wheel used by drum3
+     */
     public Enigma(String drum1_type, String drum2_type, String drum3_type) {
         this.drum1_type = drum1_type.toUpperCase(Locale.ROOT);
         this.drum2_type = drum2_type.toUpperCase(Locale.ROOT);
@@ -26,14 +29,19 @@ public class Enigma {
         resetDrums();
     }
 
-    public String encrypt(String input){
+    /**
+     * Method to encrypt a message
+     * @param input the message that needs to be encrypted
+     * @return a scrambled message which can be decrypted to revert it back to its original state
+     */
+    public String encrypt(String input) throws IllegalArgumentException {
         char[] messageList = input.toLowerCase(Locale.ROOT).toCharArray();
         StringBuilder output = new StringBuilder();
         for (char letter : messageList){
             // Encrypt Message
             char encrypted1 = drum3.leftEncrypt(drum2.leftEncrypt(drum1.leftEncrypt(letter)));
             // Reflect back
-            char reflected =reflector.reflectLetter(encrypted1);
+            char reflected = reflector.reflectLetter(encrypted1);
             // Encrypt Again
             char encrypted2 = drum1.rightEncrypt(drum2.rightEncrypt(drum3.rightEncrypt(letter)));
             // Add letter to output
@@ -45,7 +53,12 @@ public class Enigma {
         return output.toString();
     }
 
-    public String decrypt(String input){
+    /**
+     * Method to decrypt a message
+     * @param input a scrambled message that needs to be decrypted
+     * @return the original state of the message before it was encrypted
+     */
+    public String decrypt(String input) throws IllegalArgumentException {
         char[] messageList = input.toLowerCase(Locale.ROOT).toCharArray();
         StringBuilder output = new StringBuilder();
 
@@ -65,13 +78,41 @@ public class Enigma {
         return output.toString();
     }
 
+    /**
+     * Method to reset Drums back to their original positions
+     */
     private void resetDrums(){
         drum1 = new Drum(drum1_type.toUpperCase(Locale.ROOT));
         drum2 = new Drum(drum2_type.toUpperCase(Locale.ROOT));
         drum3 = new Drum(drum3_type.toUpperCase(Locale.ROOT));
     }
 
-    // Getters and setter
+    /**
+     * Method to rotate Drum1 n number of times
+     * @param n how many times the drum shall be turned
+     */
+    private void rotateDrum1(int n) throws IllegalArgumentException {
+        drum1.setDrumPosTo(n);
+    }
+
+    /**
+     * Method to rotate Drum2 n number of times
+     * @param n how many times the drum shall be turned
+     */
+    private void rotateDrum2(int n) throws IllegalArgumentException {
+        drum3.setDrumPosTo(n);
+    }
+
+    /**
+     * Method to rotate Drum3 n number of times
+     * @param n how many times the drum shall be turned
+     */
+    private void rotateDrum3(int n) throws IllegalArgumentException {
+        drum3.setDrumPosTo(n);
+    }
+
+    // Getters and setters
+
     public Drum getDrum1() {
         return drum1;
     }
