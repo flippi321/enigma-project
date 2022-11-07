@@ -1,4 +1,4 @@
-package enigma_project.Encryption_wheels;
+package enigma_project.Wheel_Section;
 
 /**
  * Enigma machine class
@@ -8,6 +8,7 @@ public class wheel {
     String[] alphabeth =
             {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
     char[] wheel;
+    int wheelPosition;
 
     // Encryption Wheels
     // TODO Change Location
@@ -30,13 +31,14 @@ public class wheel {
         } else {
             this.wheel = C;
         }
+        wheelPosition = 0;
     }
 
     /**
-     * Method to rotate the wheel
+     * Method to tick the wheel
      * This means moving all values one position up, and the last value to the first position
      */
-    public void rotate(){
+    public boolean tick(boolean check){
         // Get last element
         int last_position = wheel.length-1;
         char temp = wheel[last_position];
@@ -44,7 +46,34 @@ public class wheel {
         System.arraycopy(wheel, 0, wheel, 1, last_position);
         //Replace first value with the last element
         wheel[0] = temp;
+
+        //If wheel has reset, the next wheel needs to tick
+        if(wheelPosition==last_position){
+            wheelPosition = 0;
+            return true;
+        }
+        wheelPosition++;
+        return false;
     }
 
-    public char
+    /**
+     * If it's the first wheel, it will always tick after activation
+     * @return if the second wheel needs to tick
+     */
+    public boolean tick(){
+        return tick(true);
+    }
+
+    /**
+     * Method to tick the wheel multiple times
+     * @param n how many times the wheel will tick
+     */
+    public void tickMultiple(int n){
+        if (n<=0){  throw new IllegalArgumentException("Has to rotate a positive number of times"); }
+        for(int i = 0; i < n; i++){
+            tick();
+        }
+    }
+
+
 }
