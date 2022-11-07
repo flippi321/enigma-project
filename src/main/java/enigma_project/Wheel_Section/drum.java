@@ -1,7 +1,7 @@
 package enigma_project.Wheel_Section;
 
 /**
- * Enigma machine class
+ * Enigma Machine Drum class
  * @author flippi321
  */
 public class drum {
@@ -36,17 +36,15 @@ public class drum {
 
     /**
      * Method to tick the wheel
-     * This means moving all values one position up, and the last value to the first position
+     * Depending on the parameters, this can either mean moving all values one step up or one step down
      */
-    public boolean tick(boolean check){
+    private boolean tick(int srcPos, int destPos){
         // Get last element
         int last_position = wheel.length-1;
         char temp = wheel[last_position];
         // Replace all values with the previous one
-        // TODO Test ArrayCopy
-        for (int i = last_position; i >= 0; i--){
-            wheel[i] = wheel[i-1];
-        }
+        // TODO test that arraycopy works as intended
+        System.arraycopy(wheel, srcPos, wheel, destPos, wheel.length);
         //Replace first value with the last element
         wheel[0] = temp;
 
@@ -60,55 +58,51 @@ public class drum {
     }
 
     /**
-     * Method to tick the wheel multiple times
-     * Used for setting drum starting position
+     * Method to tick the wheel upwards if possible
+     * All values will be moved up and the last value will be put at the first position
+     */
+    public boolean tickUp(boolean shouldTick) {
+        if (shouldTick){
+            return tick(0, 1);
+        }
+        return false;
+    }
+
+    /**
+     * Method to tick the wheel upwards
+     */
+    public boolean tickUp() {
+        return tickUp(true);
+    }
+
+    /**
+     * Method to tick the wheel downwards if possible
+     * All values will be moved down and the first value will be put at the last position
+     */
+    public boolean tickDown(boolean shouldTick) {
+        if (shouldTick){
+            return tick(1, 0);
+        }
+        return false;
+    }
+
+    /**
+     * Method to tick the wheel downwards
+     * All values will be moved down and the first value will be put at the last position
+     */
+    public boolean tickDown() {
+        return tickDown(true);
+    }
+
+    /**
+     * Method to tick the drum to a specified position
+     * This is used to set the initial position of the enigma drums
      * @param n how many times the wheel will tick
      */
-    public void tickMultiple(int n) throws IllegalArgumentException{
+    public void setDrumPosTo(int n){
         if (n<=0){  throw new IllegalArgumentException("Has to rotate a positive number of times"); }
         for(int i = 0; i < n; i++){
-            tick();
+            tickUp();
         }
-    }
-
-    /**
-     * Method to tick the wheel in the reverse order
-     * This means moving all values one position down, and the first value to the last position
-     */
-    public boolean reverseTick(boolean check){
-        // Get last element
-        int last_position = wheel.length-1;
-        char temp = wheel[0];
-        // Replace all values with the next one
-        // TODO Test ArrayCopy
-        for (int i = 0; i < wheel.length; i++){
-            wheel[i] = wheel[i+1];
-        }
-        //Replace first value with the last element
-        wheel[0] = temp;
-
-        //If wheel has reset, the next wheel needs to tick
-        if(wheelPosition==last_position){
-            wheelPosition = 0;
-            return true;
-        }
-        wheelPosition++;
-        return false;
-    }
-
-    /**
-     * If it's the first wheel, it will always tick after activation
-     * @return if the second wheel needs to tick
-     */
-    public boolean tick(){
-        return tick(true);
-    }
-
-    /**
-     * If it's the first wheel, it will always tick after activation
-     * @return if the second wheel needs to tick
-     */
-    public boolean reverseTick(){
-        return reverseTick(true);
     }
 }
