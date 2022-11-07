@@ -63,4 +63,37 @@ public class Enigma {
         }
         return output.toString();
     }
+
+    // Getters and setter
+    public Drum getDrum1() {
+        return drum1;
+    }
+
+    public void setDrum1(Drum drum1) {
+        this.drum1 = drum1;
+    }
+
+    public Drum getDrum2() {
+        return drum2;
+    }
+
+    public void setDrum2(Drum drum2) {
+        this.drum2 = drum2;
+    }
+
+    public Drum getDrum3() {
+        return drum3;
+    }
+
+    public void setDrum3(Drum drum3) {
+        this.drum3 = drum3;
+    }
+
+    public Reflector getReflector() {
+        return reflector;
+    }
+
+    public void setReflector(Reflector reflector) {
+        this.reflector = reflector;
+    }
 }
