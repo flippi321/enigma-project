@@ -9,6 +9,8 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+@Nested
+@DisplayName("Drum Test")
 public class DrumTest {
     @Nested
     @DisplayName("Constructors")
@@ -18,7 +20,7 @@ public class DrumTest {
         public void checkDrumWithSettingA(){
             try{
                 Drum drum = new Drum("A");
-                ArrayList<Character> correctList = new ArrayList<>(Arrays.asList('z','y','x','w','v',
+                ArrayList<Character> correctList = new ArrayList<>(Arrays.asList('!','.',',',' ','z','y','x','w', 'v',
                         'u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','a'));
                 assertEquals(correctList, drum.getWheel());
             } catch(IllegalArgumentException e) {
@@ -32,8 +34,8 @@ public class DrumTest {
         public void checkDrumWithSettingB(){
             try{
                 Drum drum = new Drum("B");
-                ArrayList<Character> correctList = new ArrayList<>(Arrays.asList('k','i','b','p','l',
-                        'h','w','d','v','y','q','j','m','s','u','x','z','f','t','g','e','r','o','c','a','n'));
+                ArrayList<Character> correctList = new ArrayList<>(Arrays.asList('k','i','b','p','l','!','h','w','d',
+                        'v','y','q','j',' ','m','s','u',',','x','z','f','t','.','g','e','r','o','c','a','n'));
                 assertEquals(correctList, drum.getWheel());
             } catch(IllegalArgumentException e) {
                 fail("checkDrumWithSettingB failed");
@@ -46,8 +48,8 @@ public class DrumTest {
         public void checkDrumWithSettingC(){
             try{
                 Drum drum = new Drum("C");
-                ArrayList<Character> correctList = new ArrayList<>(Arrays.asList('y','d','s','q','l',
-                        'w','p','z','x','u','k','b','h','c','e','m','v','a','n','o','r','g','t','f','j','i'));
+                ArrayList<Character> correctList = new ArrayList<>(Arrays.asList('y','d','s','q','l',',', 'w','p','z',
+                        'x','u', '.','k','b','h','c','e','m','v','a','n',' ','o','r','!','g','t','f','j','i'));
                 assertEquals(correctList, drum.getWheel());
             } catch(IllegalArgumentException e) {
                 fail("checkDrumWithSettingC failed");
@@ -104,8 +106,8 @@ public class DrumTest {
             try{
                 Drum drum = new Drum("A");
                 drum.tickUp(true);
-                ArrayList<Character> correctList = new ArrayList<>(Arrays.asList('a','z','y','x','w','v',
-                        'u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b'));
+                ArrayList<Character> correctList = new ArrayList<>(Arrays.asList('a','!','.',',',' ','z','y','x','w',
+                        'v','u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b'));
                 assertEquals(correctList, drum.getWheel());
             } catch(IllegalArgumentException e) {
                 fail("checkDrumWithSettingA failed");
@@ -118,8 +120,8 @@ public class DrumTest {
             try{
                 Drum drum = new Drum("A");
                 drum.tickDown(true);
-                ArrayList<Character> correctList = new ArrayList<>(Arrays.asList('y','x','w','v',
-                        'u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','z','a'));
+                ArrayList<Character> correctList = new ArrayList<>(Arrays.asList('.',',',' ','z','y','x','w',
+                        'v','u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','a','!'));
                 assertEquals(correctList, drum.getWheel());
             } catch(IllegalArgumentException e) {
                 fail("checkDrumWithSettingA failed");

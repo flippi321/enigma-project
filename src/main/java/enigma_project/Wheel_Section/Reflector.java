@@ -11,9 +11,8 @@ public class Reflector {
     ArrayList<Character> alphabet;
 
     public Reflector(){
-        alphabet = new ArrayList<>(Arrays.asList(
-                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
-                'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'));
+        alphabet = new ArrayList<>(Arrays.asList('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+                'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',' ', ',', '.', '!'));
     }
 
     /**
@@ -24,6 +23,6 @@ public class Reflector {
      */
     public char reflectLetter(char in){
         int newPost = (alphabet.size()-1) - alphabet.indexOf(in);   // Calculate the opposite index
-        return alphabet.get(newPost);                           // Return corresponding Character
+        return alphabet.get(newPost);                               // Return corresponding Character
     }
 }

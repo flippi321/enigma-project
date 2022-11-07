@@ -22,22 +22,22 @@ public class Drum {
 
         // Use Wheel A
         if (type.equalsIgnoreCase("A")){
-            this.wheel = new ArrayList<>(Arrays.asList('z','y','x','w','v',
-                    'u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','a'));
+            this.wheel = new ArrayList<>(Arrays.asList('!','.',',',' ','z','y','x','w', 'v','u','t','s',
+                    'r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','a'));
         }
         // Use Wheel B
         else if (type.equalsIgnoreCase("B")){
-            this.wheel = new ArrayList<>(Arrays.asList('k','i','b','p','l',
-                    'h','w','d','v','y','q','j','m','s','u','x','z','f','t','g','e','r','o','c','a','n'));
+            this.wheel = new ArrayList<>(Arrays.asList('k','i','b','p','l','!','h','w','d','v','y','q',
+                    'j',' ','m','s','u',',','x','z','f','t','.','g','e','r','o','c','a','n'));
         }
         // Use Wheel C
         else {
-            this.wheel = new ArrayList<>(Arrays.asList('y','d','s','q','l',
-                    'w','p','z','x','u','k','b','h','c','e','m','v','a','n','o','r','g','t','f','j','i'));
+            this.wheel = new ArrayList<>(Arrays.asList('y','d','s','q','l',',', 'w','p','z','x','u', '.',
+                    'k','b','h','c','e','m','v','a','n',' ','o','r','!','g','t','f','j','i'));
         }
         // Define alphabet
-        alphabet = new ArrayList<>(Arrays.asList('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-                'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'));
+        alphabet = new ArrayList<>(Arrays.asList('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+                'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',' ', ',', '.', '!'));
         wheelPosition = 0;
     }
 
@@ -55,7 +55,7 @@ public class Drum {
         // Rotate Down
         else if (setting==-1){
             // Move first element to the back
-            wheel.add(wheel.size()-1, wheel.get(0));
+            wheel.add(wheel.size(), wheel.get(0));
             wheel.remove(0);
         }
         // Invalid Input
@@ -119,6 +119,17 @@ public class Drum {
 
     /**
      * Method for scrambling a letter using the wheel
+     * This method is used on encryption done before reaching the reflector
+     * @param c the input character
+     * @return the scrambled character
+     */
+    public char leftDecrypt(char c){
+        int pos = wheel.indexOf(c);
+        return alphabet.get(pos);
+    }
+
+    /**
+     * Method for scrambling a letter using the wheel
      * This method is used on encryption done after reaching the reflector
      * @param c the input character
      * @return the scrambled character
@@ -126,6 +137,17 @@ public class Drum {
     public char rightEncrypt(char c){
         int pos = wheel.indexOf(c);
         return alphabet.get(pos);
+    }
+
+    /**
+     * Method for scrambling a letter using the wheel
+     * This method is used on encryption done after reaching the reflector
+     * @param c the input character
+     * @return the scrambled character
+     */
+    public char rightDecrypt(char c){
+        int pos = alphabet.indexOf(c);
+        return wheel.get(pos);
     }
 
     // Getters and Setters
