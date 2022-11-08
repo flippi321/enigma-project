@@ -2,6 +2,11 @@ package enigma_project.PinBoard;
 
 import java.util.ArrayList;
 
+/**
+ * PinBoard class
+ * @author flippi321
+ * @version 1.0
+ */
 public class PinBoard {
     ArrayList<Connection> connections = new ArrayList<>();
 

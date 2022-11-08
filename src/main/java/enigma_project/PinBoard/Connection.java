@@ -1,7 +1,10 @@
 package enigma_project.PinBoard;
 
-import java.lang.constant.Constable;
-
+/**
+ * Connection class
+ * @author flippi321
+ * @version 1.0
+ */
 public class Connection {
     char a;
     char b;

@@ -9,6 +9,11 @@ import java.util.Locale;
 import static javax.swing.JOptionPane.DEFAULT_OPTION;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 
+/**
+ * Application, which will use all other classes
+ * @author flippi321
+ * @version 1.0
+ */
 public class App {
     public static void main(String[] args) {
         Enigma enigma = new Enigma(Wheel_type.A, Wheel_type.A, Wheel_type.A);

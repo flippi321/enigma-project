@@ -9,6 +9,7 @@ import java.util.Locale;
 /**
  * Enigma machine class
  * @author flippi321
+ * @version 1.0
  */
 public class Enigma {
     Drum drum1;
