@@ -32,26 +32,28 @@ public class Enigma {
         resetDrums();
     }
 
-    /**
-     * Method to encrypt a message
-     * @param input the message that needs to be encrypted
-     * @return a scrambled message which can be decrypted to revert it back to its original state
-     */
-    public String encrypt(String input) throws IllegalArgumentException {
+
+    public String algorithm(String input, boolean encrypting) throws IllegalArgumentException {
         char[] messageList = input.toLowerCase(Locale.ROOT).toCharArray();
         StringBuilder output = new StringBuilder();
         for (char letter : messageList){
-            // Try to swap through the PinBoard
-            char swappedLetter = pinBoard.swap(letter);
+            char currentLetter = letter;
+            // If decrypting, we need to swap before the encryption
+            if (!encrypting){
+                currentLetter = pinBoard.swap(letter);
+            }
             // Encrypt Message
-            char encrypted1 = drum3.leftEncrypt(drum2.leftEncrypt(drum1.leftEncrypt(swappedLetter)));
+            char encrypt1 = leftEncrypt(currentLetter);
             // Reflect back
-            char reflected = reflector.reflectLetter(encrypted1);
+            char reflected = reflector.reflectLetter(encrypt1);
             // Encrypt Again
-            // TODO FIX
-            char encrypted2 = drum1.rightEncrypt(drum2.rightEncrypt(drum3.rightEncrypt(letter)));
+            currentLetter = rightEncrypt(reflected);
+            // If encrypting, we need to swap after the encryption
+            if (encrypting){
+                currentLetter = pinBoard.swap(currentLetter);
+            }
             // Add letter to output
-            output.append(encrypted2);
+            output.append(currentLetter);
             // Rotate Wheels
             drum3.tickUp(drum2.tickUp(drum1.tickUp(true)));
         }
@@ -59,32 +61,24 @@ public class Enigma {
         return output.toString();
     }
 
-    /**
-     * Method to decrypt a message
-     * @param input a scrambled message that needs to be decrypted
-     * @return the original state of the message before it was encrypted
-     */
-    public String decrypt(String input) throws IllegalArgumentException {
-        char[] messageList = input.toLowerCase(Locale.ROOT).toCharArray();
-        StringBuilder output = new StringBuilder();
+    public String encrypt(String input){
+        return algorithm(input, true);
+    }
 
-        for (char letter : messageList){
-            // Try to swap through the PinBoard
-            char swappedLetter = pinBoard.swap(letter);
-            // Encrypt Message
-            char encrypted1 = drum1.leftDecrypt(drum2.leftDecrypt(drum3.leftDecrypt(swappedLetter)));
-            // Reflect back
-            char reflected =reflector.reflectLetter(encrypted1);
-            // Encrypt Again
-            // TODO FIX
-            char encrypted2 = drum3.rightDecrypt(drum2.rightDecrypt(drum1.rightDecrypt(letter)));
-            // Add letter to output
-            output.append(encrypted2);
-            // Rotate Wheels
-            drum3.tickUp(drum2.tickUp(drum1.tickUp(true)));
-        }
-        resetDrums();
-        return output.toString();
+    public String decrypt(String input){
+        return algorithm(input, false);
+    }
+
+    private char leftEncrypt(char c){
+        char l1 = drum1.leftEncrypt(c);
+        char l2 = drum2.leftEncrypt(l1);
+        return drum3.leftEncrypt(l2);
+    }
+
+    private char rightEncrypt(char c){
+        char l1 = drum3.rightEncrypt(c);
+        char l2 = drum2.rightEncrypt(l1);
+        return drum1.rightEncrypt(l2);
     }
 
     /**

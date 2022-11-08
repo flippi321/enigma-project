@@ -78,12 +78,10 @@ public class EnigmaTesting {
         public void checkDrumWithSettingCAB2() {
             try {
                 Enigma enigma = new Enigma("C", "A", "B");
-                /*
                 enigma.addConnection('a','b');
                 enigma.addConnection('e','p');
-                enigma.addConnection('r','a');
+                enigma.addConnection('r','z');
                 enigma.addConnection('t', 'q');
-                 */
                 String encrypted = enigma.encrypt(message);
                 assertEquals(message.toLowerCase(), enigma.decrypt(encrypted));
             } catch (IllegalArgumentException e) {

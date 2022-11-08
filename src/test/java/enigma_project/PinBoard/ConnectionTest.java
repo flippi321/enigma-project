@@ -42,12 +42,24 @@ public class ConnectionTest {
         }
 
         @Test
-        @DisplayName("Swap function")
-        public void checkSwapFunction() {
+        @DisplayName("Swaps two connected letters")
+        public void checkSwapFunctionWithValues() {
             try {
                 Connection connection = new Connection('a', 'b');
                 assertEquals('b', connection.swap('a'));
                 assertEquals('a', connection.swap('b'));
+            } catch (IllegalArgumentException e) {
+                fail("threw an Exception when not expected to");
+            }
+        }
+
+        @Test
+        @DisplayName("Does not swap if there aren't any connected letters")
+        public void checkSwapFunctionWithNoValues() {
+            try {
+                Connection connection = new Connection('a', 't');
+                assertEquals('z', connection.swap('z'));
+                assertEquals('b', connection.swap('b'));
             } catch (IllegalArgumentException e) {
                 fail("threw an Exception when not expected to");
             }
