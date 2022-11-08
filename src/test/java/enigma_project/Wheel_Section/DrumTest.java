@@ -72,26 +72,26 @@ public class DrumTest {
         }
 
         @Test
-        @DisplayName("Check That it's not possible to rotate negative times")
+        @DisplayName("Check That it is not possible to rotate negative times")
         public void checkNotPossibleToRotateNegativeTimes(){
             try{
                 Drum drum = new Drum("A");
                 drum.setDrumPosTo(-1);
                 fail("checkNotPossibleToRotateNegativeTimes did not throw an exception when expected to");
             } catch(IllegalArgumentException e) {
-                assertEquals("Has to rotate more than 0 times", e.getMessage());
+                assertEquals("Has to rotate a positive amount of times", e.getMessage());
             }
         }
 
         @Test
-        @DisplayName("Check That it's not possible to rotate zero times")
-        public void checkNotPossibleToRotateZeroTimes(){
+        @DisplayName("Check That it is possible to rotate zero times")
+        public void checkPossibleToRotateZeroTimes(){
             try{
                 Drum drum = new Drum("A");
-                drum.setDrumPosTo(0);
-                fail("checkNotPossibleToRotateZeroTimes did not throw an exception when expected to");
+                assertTrue(drum.setDrumPosTo(0));
             } catch(IllegalArgumentException e) {
-                assertEquals("Has to rotate more than 0 times", e.getMessage());
+                fail("checkPossibleToRotateZeroTimes did not throw an exception when expected to");
+
             }
         }
     }

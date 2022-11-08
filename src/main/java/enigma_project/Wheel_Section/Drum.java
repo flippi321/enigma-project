@@ -102,11 +102,12 @@ public class Drum {
      * This is used to set the initial position of the enigma drums
      * @param n how many times the wheel will tick
      */
-    public void setDrumPosTo(int n) throws IllegalArgumentException{
-        if (n <= 0){  throw new IllegalArgumentException("Has to rotate more than 0 times"); }
+    public boolean setDrumPosTo(int n) throws IllegalArgumentException{
+        if (n < 0){  throw new IllegalArgumentException("Has to rotate a positive amount of times"); }
         for(int i = 0; i < n; i++){
             tickUp(true);
         }
+        return true;
     }
 
     /**

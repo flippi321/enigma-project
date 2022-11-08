@@ -48,4 +48,8 @@ public class PinBoard {
         }
         return a;
     }
+
+    public ArrayList<Connection> getConnections() {
+        return connections;
+    }
 }
