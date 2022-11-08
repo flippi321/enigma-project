@@ -10,7 +10,7 @@ import static javax.swing.JOptionPane.DEFAULT_OPTION;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 
 /**
- * Application, which will use all other classes
+ * Application, which will use all classes
  * @author flippi321
  * @version 1.0
  */
