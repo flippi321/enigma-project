@@ -75,7 +75,7 @@ public class EnigmaTesting {
 
         @Test
         @DisplayName("Check Drum with Setting C-A-B and Pinboard")
-        public void checkDrumWithSettingCAB2() {
+        public void checkDrumWithSettingCABAndPinBoard() {
             try {
                 Enigma enigma = new Enigma("C", "A", "B");
                 enigma.addConnection('a','b');

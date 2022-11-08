@@ -16,14 +16,22 @@ public class PinBoard {
      */
     public void addConnection(char a, char b) throws IllegalArgumentException {
         // If either letter is already used, we cannot connect them
-        for(Connection connection : connections){
-            if(connection.has(a, b)){
-                throw new IllegalArgumentException("One of the letters has already been used on the PinBoard");
-            }
+        if (has(a, b)){
+            throw new IllegalArgumentException("One or both characters is already connected on the PinBoard");
         }
+
         // If not, they will be connected
         Connection connection = new Connection(a, b);
         connections.add(connection);
+    }
+
+    public boolean has(char a, char b){
+        for(Connection connection : connections){
+            if(connection.has(a, b)){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
