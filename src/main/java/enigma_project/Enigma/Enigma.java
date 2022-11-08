@@ -1,4 +1,5 @@
 package enigma_project.Enigma;
+import enigma_project.PinBoard.PinBoard;
 import enigma_project.Wheel_Section.*;
 import java.util.Locale;
 
@@ -11,6 +12,7 @@ public class Enigma {
     Drum drum2;
     Drum drum3;
     Reflector reflector;
+    PinBoard pinBoard;
     String drum1_type;
     String drum2_type;
     String drum3_type;
@@ -26,6 +28,7 @@ public class Enigma {
         this.drum2_type = drum2_type.toUpperCase(Locale.ROOT);
         this.drum3_type = drum3_type.toUpperCase(Locale.ROOT);
         reflector = new Reflector();
+        pinBoard = new PinBoard();
         resetDrums();
     }
 
@@ -44,8 +47,10 @@ public class Enigma {
             char reflected = reflector.reflectLetter(encrypted1);
             // Encrypt Again
             char encrypted2 = drum1.rightEncrypt(drum2.rightEncrypt(drum3.rightEncrypt(letter)));
+            // Try to swap through the PinBoard
+            char finalLetter = pinBoard.swap(encrypted2);
             // Add letter to output
-            output.append(encrypted2);
+            output.append(finalLetter);
             // Rotate Wheels
             drum3.tickUp(drum2.tickUp(drum1.tickUp(true)));
         }
@@ -69,8 +74,10 @@ public class Enigma {
             char reflected =reflector.reflectLetter(encrypted1);
             // Encrypt Again
             char encrypted2 = drum3.rightDecrypt(drum2.rightDecrypt(drum1.rightDecrypt(letter)));
+            // Try to swap through the PinBoard
+            char finalLetter = pinBoard.swap(encrypted2);
             // Add letter to output
-            output.append(encrypted2);
+            output.append(finalLetter);
             // Rotate Wheels
             drum3.tickUp(drum2.tickUp(drum1.tickUp(true)));
         }
