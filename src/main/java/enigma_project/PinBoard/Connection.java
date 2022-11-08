@@ -6,7 +6,10 @@ public class Connection {
     char a;
     char b;
 
-    public Connection(char a, char b) {
+    public Connection(char a, char b) throws IllegalArgumentException {
+        if(a==b){
+            throw new IllegalArgumentException("The characters on the switchboard must be different");
+        }
         this.a = a;
         this.b = b;
     }

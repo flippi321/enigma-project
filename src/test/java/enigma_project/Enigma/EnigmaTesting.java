@@ -67,7 +67,24 @@ public class EnigmaTesting {
             try {
                 Enigma enigma = new Enigma("C", "A", "B");
                 String encrypted = enigma.encrypt(message);
-                System.out.println(encrypted);
+                assertEquals(message.toLowerCase(), enigma.decrypt(encrypted));
+            } catch (IllegalArgumentException e) {
+                fail("checkDrumWithSettingA failed");
+            }
+        }
+
+        @Test
+        @DisplayName("Check Drum with Setting C-A-B and Pinboard")
+        public void checkDrumWithSettingCAB2() {
+            try {
+                Enigma enigma = new Enigma("C", "A", "B");
+                /*
+                enigma.addConnection('a','b');
+                enigma.addConnection('e','p');
+                enigma.addConnection('r','a');
+                enigma.addConnection('t', 'q');
+                 */
+                String encrypted = enigma.encrypt(message);
                 assertEquals(message.toLowerCase(), enigma.decrypt(encrypted));
             } catch (IllegalArgumentException e) {
                 fail("checkDrumWithSettingA failed");

@@ -41,16 +41,17 @@ public class Enigma {
         char[] messageList = input.toLowerCase(Locale.ROOT).toCharArray();
         StringBuilder output = new StringBuilder();
         for (char letter : messageList){
+            // Try to swap through the PinBoard
+            char swappedLetter = pinBoard.swap(letter);
             // Encrypt Message
-            char encrypted1 = drum3.leftEncrypt(drum2.leftEncrypt(drum1.leftEncrypt(letter)));
+            char encrypted1 = drum3.leftEncrypt(drum2.leftEncrypt(drum1.leftEncrypt(swappedLetter)));
             // Reflect back
             char reflected = reflector.reflectLetter(encrypted1);
             // Encrypt Again
+            // TODO FIX
             char encrypted2 = drum1.rightEncrypt(drum2.rightEncrypt(drum3.rightEncrypt(letter)));
-            // Try to swap through the PinBoard
-            char finalLetter = pinBoard.swap(encrypted2);
             // Add letter to output
-            output.append(finalLetter);
+            output.append(encrypted2);
             // Rotate Wheels
             drum3.tickUp(drum2.tickUp(drum1.tickUp(true)));
         }
@@ -68,21 +69,32 @@ public class Enigma {
         StringBuilder output = new StringBuilder();
 
         for (char letter : messageList){
+            // Try to swap through the PinBoard
+            char swappedLetter = pinBoard.swap(letter);
             // Encrypt Message
-            char encrypted1 = drum1.leftDecrypt(drum2.leftDecrypt(drum3.leftDecrypt(letter)));
+            char encrypted1 = drum1.leftDecrypt(drum2.leftDecrypt(drum3.leftDecrypt(swappedLetter)));
             // Reflect back
             char reflected =reflector.reflectLetter(encrypted1);
             // Encrypt Again
+            // TODO FIX
             char encrypted2 = drum3.rightDecrypt(drum2.rightDecrypt(drum1.rightDecrypt(letter)));
-            // Try to swap through the PinBoard
-            char finalLetter = pinBoard.swap(encrypted2);
             // Add letter to output
-            output.append(finalLetter);
+            output.append(encrypted2);
             // Rotate Wheels
             drum3.tickUp(drum2.tickUp(drum1.tickUp(true)));
         }
         resetDrums();
         return output.toString();
+    }
+
+    /**
+     * Method to add a connection between two letters on the Enigma PinBoard
+     * @param a the first letter
+     * @param b the second letter
+     * @throws IllegalArgumentException if either letter is already used
+     */
+    public void addConnection(char a, char b) throws IllegalArgumentException{
+        pinBoard.addConnection(a, b);
     }
 
     /**
