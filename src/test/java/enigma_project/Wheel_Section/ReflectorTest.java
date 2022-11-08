@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+@Nested
+@DisplayName("Reflector Test")
 public class ReflectorTest {
     @Nested
     @DisplayName("ReflectLetter")
@@ -16,7 +18,7 @@ public class ReflectorTest {
         public void checkWheelTypeA() {
             try {
                 Reflector reflector = new Reflector();
-                assertEquals('z', reflector.reflectLetter('a'));
+                assertEquals('!', reflector.reflectLetter('a'));
             } catch (IllegalArgumentException e) {
                 fail("threw an exception where not expected to");
             }
@@ -27,7 +29,7 @@ public class ReflectorTest {
         public void checkWheelTypeW() {
             try {
                 Reflector reflector = new Reflector();
-                assertEquals('d', reflector.reflectLetter('w'));
+                assertEquals('h', reflector.reflectLetter('w'));
             } catch (IllegalArgumentException e) {
                 fail("threw an exception where not expected to");
             }
@@ -38,7 +40,7 @@ public class ReflectorTest {
         public void checkWheelTypeM() {
             try {
                 Reflector reflector = new Reflector();
-                assertEquals('n', reflector.reflectLetter('m'));
+                assertEquals('r', reflector.reflectLetter('m'));
             } catch (IllegalArgumentException e) {
                 fail("threw an exception where not expected to");
             }
@@ -49,7 +51,7 @@ public class ReflectorTest {
         public void checkWheelTypeZ() {
             try {
                 Reflector reflector = new Reflector();
-                assertEquals('a', reflector.reflectLetter('z'));
+                assertEquals('a', reflector.reflectLetter('!'));
             } catch (IllegalArgumentException e) {
                 fail("threw an exception where not expected to");
             }

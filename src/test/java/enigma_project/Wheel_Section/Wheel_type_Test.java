@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+@Nested
+@DisplayName("Wheel_Type Test")
 public class Wheel_type_Test {
     @Nested
     @DisplayName("GetName commands")
