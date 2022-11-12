@@ -35,7 +35,7 @@ O - E
 
 ### 3: Start Encryption
 Now that the machine has been set up, Carl is ready to encrypt the message. He inputs the message "Hello" and the machine starts
-The machine will go through the following process with every single letter. We are
+The machine will go through the following process with every single letter.
 
 #### Pinboard
 Since H and C are connected, The input letter 'H' will be replaced with the letter 'C'
